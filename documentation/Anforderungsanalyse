@@ -1,0 +1,33 @@
+Der Service soll als Funktionalität folgendes bereitstellen:
+
+-> Erzeugung und Löschung von Gruppen durch User
+-> Verwaltung von bestehenden Gruppen durch User
+-> Bereitstellung einer Auswahl von Gruppen
+-> Suche nach bestimmten Gruppen (?)
+-> Hinzufügen und entfernen von Gruppenmitgliedern
+-> Gruppen kapseln themenspezifische Bedingungen
+-> Entsendung von Notification wenn bestimmte Bedingungen erfüllt sind
+
+-> Gruppen im Sinne von Themen an denen Nutzer teilnehem können
+-> Gruppen dienen nicht der sozialer Interaktion
+-> Gruppen können kategorisiert werden
+
+US 1:
+
+User U erstellt eine Gruppe "Frost" in der Kategorie Verkehr.
+U legt als Bedingung fest, dass wenn bestimmte Wetterbedingungen
+bei einem Abonnenten A vorliegen, er eine Notification N erhält.
+N soll den Text "Scheibe muss von Frost befreit werden" enthalten.
+
+US 2:
+
+User U erstellt eine Gruppe "Rhododendron" in der Kategorie Garten.
+U legt als Bedingung fest, dass wenn bestimmte Wetterbedingungen
+bei einem Abonnenten A vorliegen, er eine Notification N erhält.
+N soll den Text "Rhododendron gießen" enthalten.
+
+US 3:
+
+User U navigiert über Benutzeroberfläche und lässt sich eine Auswahl
+an zufälligen Gruppen anzeigen. U kann sich die Gruppen auch Themenspezifisch
+anzeigen lassen. U kann den Gruppen beitreten.
