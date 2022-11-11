@@ -1,4 +1,4 @@
-package com.example.GroupService;
+package de.GroupService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
