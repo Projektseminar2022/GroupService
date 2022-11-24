@@ -1,4 +1,4 @@
 package de.GroupService.model;
 
-public enum Label {
+public enum Topic {
 }
