@@ -23,6 +23,8 @@ public class GroupRestController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Mono<Group> createGroup(@RequestBody Group group){
+
+        System.out.println(group);
         return groupService.createGroup(group);
     }
 

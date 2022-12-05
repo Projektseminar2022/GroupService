@@ -1,7 +1,6 @@
 package de.GroupService.components;
 
 import de.GroupService.model.Group;
-import de.GroupService.model.Topic;
 import de.GroupService.model.repositories.GroupRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ public class GroupService {
 
     @Autowired
     private GroupRepository groupRepo;
-
 
     public Mono<Group> createGroup(Group group) {
         return groupRepo.save(group);
@@ -38,6 +36,7 @@ public class GroupService {
     }
 
     public Flux<Group> getAllGroups() {
+        System.out.println("yo");
         return groupRepo.findAll();
     }
 
@@ -46,10 +45,10 @@ public class GroupService {
     }
 
     public Flux<Group> getRandomCollectionOfGroups() {
-        return randomCollectionOfGroups(); //TODO implement custom
+        return Flux.just(new Group()); // randomCollectionOfGroups(); //TODO implement custom
     }
 
     public Flux<Group> getRandomCollectionOfGroups(String topic) {
-        return randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
+        return Flux.just(new Group());  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
     }
 }
