@@ -24,6 +24,7 @@ public class ConditionService {
     public ConditionService(CallNotificationService service, WeatherDataService weatherService) {
         this.notificationService = service;
         this.weatherService = weatherService;
+        new ConditionGuard().start();
     }
 
     public Flux<Object> checkConditions(List<Group> groups) {
@@ -50,7 +51,7 @@ public class ConditionService {
     }
     private boolean checkConditions(Group group) {
         Condition condition = group.getCondition();
-        Weather weather = this.getWeather(group.getLocation());
+        Weather weather = this.getWeather(group.getLocation()); //TODO zusätzlich noch handling von Gruppen wo die Gruppe nicht die Location festlegt (.getLocation == null), sondern die individuelle Location des users genutzt wird
         if(condition.getTemperatureInC().contains(weather.getTemperatureInC())) {
             return true;
         }
