@@ -23,8 +23,6 @@ public class GroupRestController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Mono<Group> createGroup(@RequestBody Group group){
-
-        System.out.println(group);
         return groupService.createGroup(group);
     }
 
@@ -72,7 +70,7 @@ public class GroupRestController {
     )
     public Flux<Group> getGroupsOfAnUser(@RequestParam UUID user){
 
-        return groupService.findByUser(user);
+        return groupService.findGroupsOfUser(user);
     }
 
 

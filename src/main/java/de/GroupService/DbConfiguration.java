@@ -42,13 +42,13 @@ public class DbConfiguration {
     // in the framework
     //
     public void configureDB(){
-        log.debug("Trying to create tables");
-
-        dbClient.sql( Group.sqlCreate ).fetch().rowsUpdated()
-                .map( l -> {
-                    log.debug("Rows updated {}",l);
-                    return l;
-                }).subscribe();
+//        log.debug("Trying to create tables");
+//
+//        dbClient.sql( Group.sqlCreate ).fetch().rowsUpdated()
+//                .map( l -> {
+//                    log.debug("Rows updated {}",l);
+//                    return l;
+//                }).subscribe();
 
     }
 }

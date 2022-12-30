@@ -2,15 +2,19 @@ package de.GroupService.components;
 
 import de.GroupService.model.Condition;
 import de.GroupService.model.Group;
+import de.GroupService.model.Location;
 import de.GroupService.model.Topic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.DeferredImportSelector;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class GroupServiceTest {
 
     @Autowired
@@ -18,8 +22,11 @@ class GroupServiceTest {
 
     @Test
     void createGroup() {
-        Group group = new Group(null,1321, new ArrayList<>(), Topic.Sport , new Condition(),99);
-        groupService.createGroup(group);
+        Group group = new Group();
+        var erg = groupService.createGroup(group);
+        var groups = groupService.getAllGroups().toIterable();
+        groups.forEach((group1 -> System.out.println(group1)));
+
     }
 
     @Test
