@@ -25,8 +25,10 @@ public class Group {
     private List<Integer> members;
     private List<String> topic;
     private Condition condition;
-    private Integer minutesBeforeNotification;
+    private Integer hoursBeforeNotification;
     private Date lastNotificationSend;
+    private String message;
+
 
 
 //    public static final String sqlCreate = """
@@ -34,7 +36,7 @@ public class Group {
 //			 id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
 //			 creator bigint,
 //			 topic bigint
-//			 minutesBeforeNotification bigint
+//			 hoursBeforeNotification bigint
 //                )
 //			""";
 }

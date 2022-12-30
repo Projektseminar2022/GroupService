@@ -1,10 +1,7 @@
 package de.GroupService.components;
 
 
-import de.GroupService.model.Condition;
-import de.GroupService.model.Group;
-import de.GroupService.model.Location;
-import de.GroupService.model.Weather;
+import de.GroupService.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -21,20 +18,24 @@ public class ConditionService {
     private WeatherDataService weatherService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     public ConditionService(CallNotificationService service, WeatherDataService weatherService) {
         this.notificationService = service;
         this.weatherService = weatherService;
         new ConditionGuard().start();
     }
 
-    public Flux<Object> checkConditions(List<Group> groups) {
-        return Flux.fromStream(groups.stream().filter(group -> needToNotificate(group)).filter(group -> checkConditions(group) )
-                .map(group -> sendNotification(group)));
+
+    public Flux<Object> checkConditions(User user, List<Group> groups) {
+        return Flux.fromStream(groups.stream().filter(group -> checkConditions(user, group) )
+                .map(group -> sendNotification(user, group)));
     }
 
-    private boolean sendNotification(Group group) {
+    private boolean sendNotification(User user, Group group) {
         try {
-            group.getMembers().stream().map(id -> notificationService.callNotification(this.message(), id));
+            notificationService.callNotification(this.message() + group.getMessage(), user.getId());
             return true;
         } catch (Exception e) {
             return false;
@@ -42,36 +43,36 @@ public class ConditionService {
     }
 
     private String message() {
-        return "condition met"; //todo add custom message
+        return "GroupService: ";
     }
 
-    private boolean needToNotificate(Group group) {
-        return group.getLastNotificationSend().after(Date.from(Instant.now()
-                .plusSeconds( TimeUnit.MINUTES.toSeconds( 5 ) )));
-    }
-    private boolean checkConditions(Group group) {
+    private boolean checkConditions(User user, Group group) {
         Condition condition = group.getCondition();
-        Weather weather = this.getWeather(group.getLocation()); //TODO zusätzlich noch handling von Gruppen wo die Gruppe nicht die Location festlegt (.getLocation == null), sondern die individuelle Location des users genutzt wird
-        if(condition.getTemperatureInC().contains(weather.getTemperatureInC())) {
-            return true;
+        Weather weather = this.getWeather(this.getLocationOfUser(user), group.getHoursBeforeNotification());
+        if(!condition.getTemperatureInC().contains(weather.getTemperatureInC())) {
+            return false;
         }
-        if(condition.getWindInKmH().contains(weather.getWindInKmH())) {
-            return true;
+        if(!condition.getWindInKmH().contains(weather.getWindInKmH())) {
+            return false;
         }
-        if(condition.getSnowInCm().contains(weather.getSnowInCm())) {
-            return true;
+        if(!condition.getSnowInCm().contains(weather.getSnowInCm())) {
+            return false;
         }
-        if(condition.getHumidityInPerCent().contains(weather.getHumidityInPerCent())) {
-            return true;
+        if(!condition.getHumidityInPerCent().contains(weather.getHumidityInPerCent())) {
+            return false;
         }
-        if(condition.getPrecipitationInMm().contains(weather.getPrecipitationInMm())) {
-            return true;
+        if(!condition.getPrecipitationInMm().contains(weather.getPrecipitationInMm())) {
+            return false;
         }
-        return false;
+        return true;
     }
 
-    private Weather getWeather(Location location) {
-        return this.weatherService.getWeatherData(location);
+    private Weather getWeather(Location location, int timeInAdvanceInHours) {
+        return this.weatherService.getWeatherData(location, timeInAdvanceInHours);
+    }
+
+    private Location getLocationOfUser(User user) {
+        return this.userService.getLocationOfUser();
     }
 
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import dto.UserWithGroupsDTO;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 public class ConditionGuard extends Thread { //TODO make it singleton
 
     private int numberOfUserPerThread = 100000;
+    @Autowired
+    ConditionService conditionService;
 
     public void run() {
 
@@ -33,9 +36,9 @@ public class ConditionGuard extends Thread { //TODO make it singleton
 
     }
 
-    //@NonNull TODO Sinnvoll ?
+
     private List<UserWithGroupsDTO> getUserAndTheirGroups() {
-        return null;
+        return null; //TODO get user with his groups that are not  timedout
     }
 
     private class CheckConditionJob implements Runnable {
@@ -48,7 +51,7 @@ public class ConditionGuard extends Thread { //TODO make it singleton
 
         public void run() {
             for(var userAndHisGroups : userAndTheirGroups) {
-                //TODO nutze ConditionService
+                conditionService.checkConditions(userAndHisGroups.getUser(), userAndHisGroups.getGroups());
             }
         }
     }

@@ -8,6 +8,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.UUID;
+
 
 @Service
 public class CallNotificationService {
@@ -25,7 +27,7 @@ public class CallNotificationService {
     }
 
     //todo make call with correct body
-    public boolean callNotification(String message, long userId) {
+    public boolean callNotification(String message, UUID userId) {
         try {
             //TODO RESOLVE function call
 //            LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap();
