@@ -23,7 +23,7 @@ public class Group {
     private Integer creator;
     private Location location;
     private List<Integer> members;
-    private List<String> topic;
+    private List<Topic> topic;
     private Condition condition;
     private Integer hoursBeforeNotification;
     private Date lastNotificationSend;

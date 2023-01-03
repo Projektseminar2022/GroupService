@@ -24,7 +24,9 @@ public class ConditionService {
     public ConditionService(CallNotificationService service, WeatherDataService weatherService) {
         this.notificationService = service;
         this.weatherService = weatherService;
-        new ConditionGuard().start();
+        var conditionGuard = new ConditionGuard();
+        conditionGuard.setDaemon(true);
+        conditionGuard.start();
     }
 
 

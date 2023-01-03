@@ -1,6 +1,7 @@
 package de.GroupService.components;
 
 import de.GroupService.model.Group;
+import de.GroupService.model.Topic;
 import de.GroupService.model.repositories.GroupRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,4 +49,8 @@ public class GroupService {
     public Flux<Group> getRandomCollectionOfGroups(String topic) {
         return groupRepo.findAll().filter((group -> group.getTopic().contains(topic)));  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
     }
+
+//    public Flux<Topic> getAllTopics() {
+//        return ;  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO topics müssen ans Frontend geliefert werden
+//    }
 }
