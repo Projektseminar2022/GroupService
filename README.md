@@ -11,7 +11,7 @@ docker pull mongo <br>
 docker create mongo <br>
 docker create mongo <br>
 docker ps -a <br>
-docker run --name <container-id> -d -p 27023:27017 mongo <br>
+docker run --name <container-id> -d -p 27017:27017 mongo <br>
 
 ### Postman example
 {  
