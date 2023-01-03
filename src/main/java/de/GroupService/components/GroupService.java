@@ -18,7 +18,6 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepo;
 
-
     public Mono<Group> createGroup(Group group) {
         return groupRepo.save(group);
     }
@@ -28,9 +27,7 @@ public class GroupService {
     }
 
     public Mono<Void> deleteGroup(UUID groupId) {
-        var group = new Group();
-        group.setId(groupId);
-        return groupRepo.delete(group);
+        return groupRepo.deleteById(groupId);
     }
 
     public Mono<Group> getGroup(UUID groupId) {
@@ -41,15 +38,19 @@ public class GroupService {
         return groupRepo.findAll();
     }
 
-    public Flux<Group> findByUser(UUID user) {
-        return findByUser(user);
+    public Flux<Group> findGroupsOfUser(UUID userId) {
+        return groupRepo.findAll().filter((group -> group.getMembers().contains(userId)));
     }
 
     public Flux<Group> getRandomCollectionOfGroups() {
-        return randomCollectionOfGroups(); //TODO implement custom
+        return groupRepo.findAll(); //TODO howmany to return?
     }
 
     public Flux<Group> getRandomCollectionOfGroups(String topic) {
-        return randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
+        return groupRepo.findAll().filter((group -> group.getTopic().contains(topic)));  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
     }
+
+//    public Flux<Topic> getAllTopics() {
+//        return ;  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO topics müssen ans Frontend geliefert werden
+//    }
 }

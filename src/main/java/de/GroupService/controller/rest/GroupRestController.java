@@ -2,6 +2,7 @@ package de.GroupService.controller.rest;
 
 import de.GroupService.components.GroupService;
 import de.GroupService.model.Group;
+import de.GroupService.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -70,7 +71,7 @@ public class GroupRestController {
     )
     public Flux<Group> getGroupsOfAnUser(@RequestParam UUID user){
 
-        return groupService.findByUser(user);
+        return groupService.findGroupsOfUser(user);
     }
 
 
