@@ -99,4 +99,9 @@ public class GroupRestController {
     public Mono<ResponseEntity> joinGroup(@RequestBody joinGroupDTO join) {
         return groupService.joinGroup(join);
     }
+    @PostMapping(path = "/leaveGroup",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity> leaveGroup(@RequestBody joinGroupDTO leave) {
+        return groupService.leaveGroup(leave);
+    }
 }

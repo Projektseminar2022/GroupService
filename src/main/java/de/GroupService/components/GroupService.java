@@ -77,7 +77,30 @@ public class GroupService {
             //todo log error?
             return Mono.just(ResponseEntity.internalServerError().build());
         }
+    }
 
+    public Mono<ResponseEntity> leaveGroup(joinGroupDTO leave) {
+        try {
+            //todo check if user is in group?
+            var group = groupRepo.findById(leave.getGroup().getId()).block();
+            var user = userRepo.findById(leave.getUser().getId()).block();
+            if(!group.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            if(!user.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            // request is valid
+            group.getMembers().remove(user.getId());
+            user.getGroups().remove(group.getId());
+            //todo error handling when 1 save fails?
+            userRepo.save(user);
+            groupRepo.save(group);
+            return Mono.just(ResponseEntity.ok().build());
+        } catch (Exception e) {
+            //todo log error?
+            return Mono.just(ResponseEntity.internalServerError().build());
+        }
     }
 
 //    public Flux<Topic> getAllTopics() {
