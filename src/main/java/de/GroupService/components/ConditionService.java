@@ -74,7 +74,7 @@ public class ConditionService {
     }
 
     private Location getLocationOfUser(User user) {
-        return this.userService.getLocationOfUser();
+        return this.userService.getLocationOfUser(user);
     }
 
 }

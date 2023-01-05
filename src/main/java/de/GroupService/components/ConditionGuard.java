@@ -20,6 +20,8 @@ public class ConditionGuard extends Thread { //TODO make it singleton
     private int numberOfUserPerThread = 100000;
     @Autowired
     ConditionService conditionService;
+    @Autowired
+    UserService userService;
 
     public void run() {
 
@@ -40,6 +42,7 @@ public class ConditionGuard extends Thread { //TODO make it singleton
 
     private List<UserWithGroupsDTO> getUserAndTheirGroups() {
         var result = new ArrayList<UserWithGroupsDTO>();
+        result = (ArrayList<UserWithGroupsDTO>) userService.getUsersWithGroups();
         return result; //TODO get user with his groups that are not  timedout
     }
 
