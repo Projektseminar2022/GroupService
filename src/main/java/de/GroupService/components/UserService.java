@@ -4,13 +4,11 @@ import de.GroupService.model.Location;
 import de.GroupService.model.User;
 import de.GroupService.model.repositories.GroupRepository;
 import de.GroupService.model.repositories.UserRepository;
-import dto.UserWithGroupsDTO;
+import de.GroupService.dto.UserWithGroupsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserService {

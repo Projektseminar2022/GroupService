@@ -1,10 +1,12 @@
 package de.GroupService.controller.rest;
 
 import de.GroupService.components.GroupService;
+import de.GroupService.dto.joinGroupDTO;
 import de.GroupService.model.Group;
 import de.GroupService.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -91,5 +93,10 @@ public class GroupRestController {
     public Flux<Group> getRandomCollectionOfGroups(@RequestParam String topic){
 
         return groupService.getRandomCollectionOfGroups(topic);
+    }
+    @PostMapping(path = "/joinGroup",
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity> joinGroup(@RequestBody joinGroupDTO join) {
+        return groupService.joinGroup(join);
     }
 }

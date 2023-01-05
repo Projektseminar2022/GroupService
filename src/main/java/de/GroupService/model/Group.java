@@ -22,7 +22,7 @@ public class Group {
     private UUID id;
     private Integer creator;
     private Location location;
-    private List<Integer> members;
+    private List<UUID> members;
     private List<Topic> topic;
     private Condition condition;
     private Integer hoursBeforeNotification;

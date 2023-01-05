@@ -1,4 +1,4 @@
-package dto;
+package de.GroupService.dto;
 
 import de.GroupService.model.Group;
 import de.GroupService.model.User;

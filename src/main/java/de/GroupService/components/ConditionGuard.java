@@ -1,11 +1,9 @@
 package de.GroupService.components;
 
 import com.google.common.collect.Lists;
-import dto.UserWithGroupsDTO;
-import lombok.NonNull;
+import de.GroupService.dto.UserWithGroupsDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;

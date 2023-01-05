@@ -1,10 +1,13 @@
 package de.GroupService.components;
 
+import de.GroupService.dto.joinGroupDTO;
 import de.GroupService.model.Group;
 import de.GroupService.model.Topic;
 import de.GroupService.model.repositories.GroupRepository;
+import de.GroupService.model.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,6 +20,8 @@ public class GroupService {
 
     @Autowired
     private GroupRepository groupRepo;
+    @Autowired
+    private UserRepository userRepo;
 
     public Mono<Group> createGroup(Group group) {
         return groupRepo.save(group);
@@ -48,6 +53,31 @@ public class GroupService {
 
     public Flux<Group> getRandomCollectionOfGroups(String topic) {
         return groupRepo.findAll().filter((group -> group.getTopic().contains(topic)));  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
+    }
+
+    public Mono<ResponseEntity> joinGroup(joinGroupDTO join) {
+        try {
+            //todo check if user is in group?
+            var group = groupRepo.findById(join.getGroup().getId()).block();
+            var user = userRepo.findById(join.getUser().getId()).block();
+            if(!group.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            if(!user.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            // request is valid
+            group.getMembers().add(user.getId());
+            user.getGroups().add(group.getId());
+            //todo error handling when 1 save fails?
+            userRepo.save(user);
+            groupRepo.save(group);
+            return Mono.just(ResponseEntity.ok().build());
+        } catch (Exception e) {
+            //todo log error?
+            return Mono.just(ResponseEntity.internalServerError().build());
+        }
+
     }
 
 //    public Flux<Topic> getAllTopics() {
