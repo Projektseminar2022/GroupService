@@ -4,44 +4,50 @@ import com.google.common.collect.Lists;
 import de.GroupService.dto.UserWithGroupsDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 
-//@Service TODO Sinnvoll ?
+@Component
 @Slf4j
-public class ConditionGuard extends Thread { //TODO make it singleton
+public class ConditionJob {
 
-    private int numberOfUserPerThread = 100000;
+    final int CHECKING_PERIOD_IN_milliseconds = 1800000; //1800000 milliseconds are 30 minutes
+    final int NUMBER_OF_TASKS_PER_THREAD = 100000;
+
     @Autowired
     ConditionService conditionService;
     @Autowired
     UserService userService;
 
-    public void run() {
+    //@Scheduled(cron = "0/5 * * * * ?") //every five seconds
+    @Scheduled(fixedRate=CHECKING_PERIOD_IN_milliseconds)
+    private void executePeriodically() {
 
-        while(true) {
-            var userWithGroupsList = getUserAndTheirGroups(); //fetch fresh data
-            var numberOfThreads = (userWithGroupsList.size() / numberOfUserPerThread) + 1;
-            ExecutorService es = Executors.newFixedThreadPool(numberOfThreads);
-            var dataForThreads = Lists.partition(userWithGroupsList, numberOfThreads);
-            List<Runnable> tasks = dataForThreads.stream().map(CheckConditionJob::new).collect(Collectors.toList());
-            CompletableFuture<?>[] futures = tasks.stream()
+        var userWithGroupsList = getUserAndTheirGroups(); //fetch fresh data
+        var numberOfThreads = Math.min((userWithGroupsList.size() / NUMBER_OF_TASKS_PER_THREAD) + 1, 100);
+        ExecutorService es = Executors.newFixedThreadPool(numberOfThreads);
+        var dataForThreads = Lists.partition(userWithGroupsList, numberOfThreads);
+        List<Runnable> tasks = dataForThreads.stream().map(CheckConditionJob::new).collect(Collectors.toList());
+        System.out.println("start");
+        CompletableFuture<?>[] futures = tasks.stream()
                                                   .map(task -> CompletableFuture.runAsync(task, es))
                                                   .toArray(CompletableFuture[]::new);
-            CompletableFuture.allOf(futures).join();
-        }
-
+        CompletableFuture.allOf(futures).join();
+        System.out.println("end");
     }
-
 
     private List<UserWithGroupsDTO> getUserAndTheirGroups() {
         var result = new ArrayList<UserWithGroupsDTO>();
         result = (ArrayList<UserWithGroupsDTO>) userService.getUsersWithGroups();
-        return result; //TODO get user with his groups that are not  timedout
+        return result;
     }
 
     private class CheckConditionJob implements Runnable {
