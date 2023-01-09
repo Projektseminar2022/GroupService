@@ -103,7 +103,7 @@ public class GroupService {
         }
     }
 
-//    public Flux<Topic> getAllTopics() {
-//        return ;  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO topics müssen ans Frontend geliefert werden
-//    }
+    public Flux<Topic> getAllTopics() { //TODO REST-Methode machen die diese Methode aufruft
+        return Flux.just(Topic.values());
+    }
 }
