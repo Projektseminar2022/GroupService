@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class ConditionService {
@@ -24,9 +22,6 @@ public class ConditionService {
     public ConditionService(CallNotificationService service, WeatherDataService weatherService) {
         this.notificationService = service;
         this.weatherService = weatherService;
-        var conditionGuard = new ConditionGuard();
-        conditionGuard.setDaemon(true);
-        conditionGuard.start();
     }
 
 
@@ -74,7 +69,7 @@ public class ConditionService {
     }
 
     private Location getLocationOfUser(User user) {
-        return this.userService.getLocationOfUser();
+        return this.userService.getLocationOfUser(user);
     }
 
 }

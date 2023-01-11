@@ -1,10 +1,13 @@
 package de.GroupService.components;
 
+import de.GroupService.dto.MembershipDTO;
 import de.GroupService.model.Group;
 import de.GroupService.model.Topic;
 import de.GroupService.model.repositories.GroupRepository;
+import de.GroupService.model.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,6 +20,8 @@ public class GroupService {
 
     @Autowired
     private GroupRepository groupRepo;
+    @Autowired
+    private UserRepository userRepo;
 
     public Mono<Group> createGroup(Group group) {
         return groupRepo.save(group);
@@ -43,14 +48,62 @@ public class GroupService {
     }
 
     public Flux<Group> getRandomCollectionOfGroups() {
-        return groupRepo.findAll(); //TODO howmany to return?
+        return groupRepo.findAll().take(10);
     }
 
     public Flux<Group> getRandomCollectionOfGroups(String topic) {
-        return groupRepo.findAll().filter((group -> group.getTopic().contains(topic)));  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
+        return groupRepo.findAll().filter(g -> g.getTopic().contains(topic)).take(10);
     }
 
-//    public Flux<Topic> getAllTopics() {
-//        return ;  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO topics müssen ans Frontend geliefert werden
-//    }
+    public Mono<ResponseEntity> joinGroup(MembershipDTO join) {
+        try {
+            //todo check if user is in group?
+            var group = groupRepo.findById(join.getGroup().getId()).block();
+            var user = userRepo.findById(join.getUser().getId()).block();
+            if(!group.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            if(!user.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            // request is valid
+            group.getMembers().add(user.getId());
+            user.getGroups().add(group.getId());
+            //todo error handling when 1 save fails?
+            userRepo.save(user);
+            groupRepo.save(group);
+            return Mono.just(ResponseEntity.ok().build());
+        } catch (Exception e) {
+            //todo log error?
+            return Mono.just(ResponseEntity.internalServerError().build());
+        }
+    }
+
+    public Mono<ResponseEntity> leaveGroup(MembershipDTO leave) {
+        try {
+            //todo check if user is in group?
+            var group = groupRepo.findById(leave.getGroup().getId()).block();
+            var user = userRepo.findById(leave.getUser().getId()).block();
+            if(!group.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            if(!user.equals(null)) {
+                return Mono.just(ResponseEntity.badRequest().build());
+            }
+            // request is valid
+            group.getMembers().remove(user.getId());
+            user.getGroups().remove(group.getId());
+            //todo error handling when 1 save fails?
+            userRepo.save(user);
+            groupRepo.save(group);
+            return Mono.just(ResponseEntity.ok().build());
+        } catch (Exception e) {
+            //todo log error?
+            return Mono.just(ResponseEntity.internalServerError().build());
+        }
+    }
+
+    public Flux<Topic> getAllTopics() { //TODO REST-Methode machen die diese Methode aufruft
+        return Flux.just(Topic.values());
+    }
 }
