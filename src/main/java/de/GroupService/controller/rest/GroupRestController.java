@@ -3,6 +3,7 @@ package de.GroupService.controller.rest;
 import de.GroupService.components.GroupService;
 import de.GroupService.dto.MembershipDTO;
 import de.GroupService.model.Group;
+import de.GroupService.model.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +66,13 @@ public class GroupRestController {
         return groupService.getAllGroups();
     }
 
-
+    @GetMapping(
+            path = "/by-name",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Mono<Group> getGroupByName(@RequestParam String name) {
+        return groupService.getGroupByName(name);
+    }
     @GetMapping(
             path="/by-user",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -92,6 +99,10 @@ public class GroupRestController {
     public Flux<Group> getRandomCollectionOfGroups(@RequestParam String topic){
 
         return groupService.getRandomCollectionOfGroups(topic);
+    }
+    @GetMapping(path="all-Topics")
+    public Flux<Topic> getAllTopics() {
+        return groupService.getAllTopics();
     }
     @PostMapping(path = "/joinGroup",
     produces = MediaType.APPLICATION_JSON_VALUE)

@@ -57,7 +57,7 @@ public class GroupService {
 
     public Mono<ResponseEntity> joinGroup(MembershipDTO join) {
         try {
-            //todo check if user is in group?
+            //todo check if user is in group
             var group = groupRepo.findById(join.getGroup().getId()).block();
             var user = userRepo.findById(join.getUser().getId()).block();
             if(!group.equals(null)) {
@@ -105,5 +105,10 @@ public class GroupService {
 
     public Flux<Topic> getAllTopics() { //TODO REST-Methode machen die diese Methode aufruft
         return Flux.just(Topic.values());
+    }
+
+    public Mono<Group> getGroupByName(String name) {
+        var group = groupRepo.findByName(name);
+        group.hasElement().thenReturn(group).
     }
 }
