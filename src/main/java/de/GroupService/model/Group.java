@@ -29,14 +29,4 @@ public class Group {
     private Date lastNotificationSend;
     private String message;
 
-
-
-//    public static final String sqlCreate = """
-//			CREATE TABLE IF NOT EXISTS groups (
-//			 id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-//			 creator bigint,
-//			 topic bigint
-//			 hoursBeforeNotification bigint
-//                )
-//			""";
 }
