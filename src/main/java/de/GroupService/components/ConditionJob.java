@@ -46,7 +46,7 @@ public class ConditionJob {
 
     private List<UserWithGroupsDTO> getUserAndTheirGroups() {
         var result = new ArrayList<UserWithGroupsDTO>();
-        result = (ArrayList<UserWithGroupsDTO>) userService.getUsersWithGroups();
+        result = new ArrayList<>(userService.getUsersWithGroups());
         return result;
     }
 

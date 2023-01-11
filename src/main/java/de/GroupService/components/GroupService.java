@@ -48,11 +48,11 @@ public class GroupService {
     }
 
     public Flux<Group> getRandomCollectionOfGroups() {
-        return groupRepo.findAll(); //TODO howmany to return?
+        return groupRepo.findAll().take(10);
     }
 
     public Flux<Group> getRandomCollectionOfGroups(String topic) {
-        return groupRepo.findAll().filter((group -> group.getTopic().contains(topic)));  //randomCollectionOfGroups(Topic.valueOf(topic)); //TODO implement custom
+        return groupRepo.findAll().filter(g -> g.getTopic().contains(topic)).take(10);
     }
 
     public Mono<ResponseEntity> joinGroup(joinGroupDTO join) {
