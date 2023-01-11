@@ -22,13 +22,4 @@ public class User {
 	private Location location;
     private String name;
 
-
-
-
-//    public static final String sqlCreate = """
-//			CREATE TABLE IF NOT EXISTS users (
-//				id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-//																)
-//			""";
-
 }
