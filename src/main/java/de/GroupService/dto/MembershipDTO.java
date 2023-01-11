@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class joinGroupDTO {
+public class MembershipDTO {
     User user;
     Group group;
 }

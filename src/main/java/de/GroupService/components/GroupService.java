@@ -1,6 +1,6 @@
 package de.GroupService.components;
 
-import de.GroupService.dto.joinGroupDTO;
+import de.GroupService.dto.MembershipDTO;
 import de.GroupService.model.Group;
 import de.GroupService.model.Topic;
 import de.GroupService.model.repositories.GroupRepository;
@@ -55,7 +55,7 @@ public class GroupService {
         return groupRepo.findAll().filter(g -> g.getTopic().contains(topic)).take(10);
     }
 
-    public Mono<ResponseEntity> joinGroup(joinGroupDTO join) {
+    public Mono<ResponseEntity> joinGroup(MembershipDTO join) {
         try {
             //todo check if user is in group?
             var group = groupRepo.findById(join.getGroup().getId()).block();
@@ -79,7 +79,7 @@ public class GroupService {
         }
     }
 
-    public Mono<ResponseEntity> leaveGroup(joinGroupDTO leave) {
+    public Mono<ResponseEntity> leaveGroup(MembershipDTO leave) {
         try {
             //todo check if user is in group?
             var group = groupRepo.findById(leave.getGroup().getId()).block();

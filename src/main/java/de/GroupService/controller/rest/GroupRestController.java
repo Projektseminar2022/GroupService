@@ -1,9 +1,8 @@
 package de.GroupService.controller.rest;
 
 import de.GroupService.components.GroupService;
-import de.GroupService.dto.joinGroupDTO;
+import de.GroupService.dto.MembershipDTO;
 import de.GroupService.model.Group;
-import de.GroupService.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -96,12 +95,12 @@ public class GroupRestController {
     }
     @PostMapping(path = "/joinGroup",
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity> joinGroup(@RequestBody joinGroupDTO join) {
+    public Mono<ResponseEntity> joinGroup(@RequestBody MembershipDTO join) {
         return groupService.joinGroup(join);
     }
     @PostMapping(path = "/leaveGroup",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity> leaveGroup(@RequestBody joinGroupDTO leave) {
+    public Mono<ResponseEntity> leaveGroup(@RequestBody MembershipDTO leave) {
         return groupService.leaveGroup(leave);
     }
 }
