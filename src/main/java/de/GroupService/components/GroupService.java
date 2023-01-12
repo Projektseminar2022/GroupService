@@ -109,6 +109,6 @@ public class GroupService {
 
     public Mono<Group> getGroupByName(String name) {
         var group = groupRepo.findByName(name);
-        group.hasElement().thenReturn(group).
+        return group;
     }
 }

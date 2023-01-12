@@ -65,7 +65,7 @@ public class ConditionService {
     }
 
     private Weather getWeather(Location location, int timeInAdvanceInHours) {
-        return this.weatherService.getWeatherData(location, timeInAdvanceInHours);
+        return this.weatherService.getWeatherData(location.getLocation(), timeInAdvanceInHours);
     }
 
     private Location getLocationOfUser(User user) {
