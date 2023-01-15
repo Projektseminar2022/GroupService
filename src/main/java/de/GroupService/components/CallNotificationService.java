@@ -1,5 +1,6 @@
 package de.GroupService.components;
 
+import de.GroupService.components.client.NotificationClient;
 import feign.Feign;
 import feign.gson.GsonDecoder;
 import feign.gson.GsonEncoder;

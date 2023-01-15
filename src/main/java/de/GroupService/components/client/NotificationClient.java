@@ -1,7 +1,6 @@
-package de.GroupService.components;
+package de.GroupService.components.client;
 
-import de.GroupService.dto.UserLocationDTO;
-import de.GroupService.model.Weather;
+
 import feign.Param;
 import feign.RequestLine;
 
