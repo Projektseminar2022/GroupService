@@ -45,7 +45,7 @@ public class ConditionService {
 
     private boolean checkConditions(User user, Group group) {
         Condition condition = group.getCondition();
-        Weather weather = this.getWeather(group.getLocation().getLatitude(), group.getLocation().getLongitude(), group.getHoursBeforeNotification());
+        Weather weather = this.getWeather(this.getLocationOfUser(user), group.getHoursBeforeNotification());
         if(!condition.getTemperatureInC().contains(weather.getTemperatureInC())) {
             return false;
         }
@@ -64,8 +64,12 @@ public class ConditionService {
         return true;
     }
 
-    private Weather getWeather(double latitude, double longitude, int timeInAdvanceInHours) {
-        return this.weatherService.getWeatherData(latitude, longitude, timeInAdvanceInHours);
+    private Weather getWeather(Location location, int timeInAdvanceInHours) {
+        return this.weatherService.getWeatherData(location.getLocation(), timeInAdvanceInHours);
+    }
+
+    private Location getLocationOfUser(User user) {
+        return this.userService.getLocationOfUser(user);
     }
 
 }
