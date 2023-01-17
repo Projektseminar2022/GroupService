@@ -20,10 +20,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Location getLocationOfUser(User user) {
-        return new Location("");
-    }
-
     //todo optimize possible to use maps?
     public List<UserWithGroupsDTO> getUsersWithGroups() {
         var users = userRepository.findAll();

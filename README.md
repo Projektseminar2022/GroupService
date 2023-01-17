@@ -38,7 +38,8 @@
 "name": "Kölner Haie Fanclub",  
 "creator": 12345,  
 "location": {  
-"location": "Central Park"  
+"latitude": 50.733334,     
+"longitude": 7.733334,     
 },  
 "members": [],  
 "topic": ["Sport"],  
@@ -75,8 +76,9 @@
 "id": "123e4567-e89b-12d3-a456-426655440000",  
 "groups": [],  
 "location": {  
-"location": "Bonn"  
-},  
+"latitude": 50.733334,     
+"longitude": 7.733334,     
+},   
 "name": "John Smith"  
 },  
 "group": {    
@@ -84,7 +86,8 @@
 "name": "Kölner Haie Fanclub",  
 "creator": 12345,  
 "location": {  
-"location": "Central Park"  
+"latitude": 50.733334,     
+"longitude": 7.733334,     
 },  
 "members": [],  
 "topic": ["Sport"],  
