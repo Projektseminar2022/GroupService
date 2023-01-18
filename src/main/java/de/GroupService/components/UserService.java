@@ -1,6 +1,6 @@
 package de.GroupService.components;
 
-import de.GroupService.model.Location;
+import de.GroupService.model.SendNotificationsToUser;
 import de.GroupService.model.User;
 import de.GroupService.model.repositories.GroupRepository;
 import de.GroupService.model.repositories.UserRepository;
@@ -20,7 +20,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    //todo optimize possible to use maps?
+    public void addNotifcationCoolDown(User user, SendNotificationsToUser notifications) {
+        var foundUser = userRepository.findById(user.getId()).block();
+        foundUser.getSendNotifications().add(notifications);
+        userRepository.save(foundUser);
+    }
+        //todo optimize possible to use maps?
     public List<UserWithGroupsDTO> getUsersWithGroups() {
         var users = userRepository.findAll();
         var groups = (groupRepository.findAll()).toStream().toList();
