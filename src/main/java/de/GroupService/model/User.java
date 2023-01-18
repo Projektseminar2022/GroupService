@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -21,6 +20,6 @@ public class User {
 	private ArrayList<UUID> groups;
 	private Location location;
     private String name;
-    private ArrayList<SendNotifications> sendNotifications;
+    private ArrayList<SendNotificationsToUser> sendNotifications;
 
 }

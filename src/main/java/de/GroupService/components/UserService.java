@@ -1,7 +1,6 @@
 package de.GroupService.components;
 
-import de.GroupService.model.Location;
-import de.GroupService.model.SendNotifications;
+import de.GroupService.model.SendNotificationsToUser;
 import de.GroupService.model.User;
 import de.GroupService.model.repositories.GroupRepository;
 import de.GroupService.model.repositories.UserRepository;
@@ -21,7 +20,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void addNotifcationCoolDown(User user, SendNotifications notifications) {
+    public void addNotifcationCoolDown(User user, SendNotificationsToUser notifications) {
         var foundUser = userRepository.findById(user.getId()).block();
         foundUser.getSendNotifications().add(notifications);
         userRepository.save(foundUser);
