@@ -21,5 +21,6 @@ public class User {
 	private ArrayList<UUID> groups;
 	private Location location;
     private String name;
+    private ArrayList<SendNotifications> sendNotifications;
 
 }
