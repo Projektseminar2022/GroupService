@@ -24,7 +24,7 @@ public class WeatherDataService {
     private Weather callApi(double latitude, double longitude, int timeInAdvanceInHours) {
         Weather weather;
 
-        Object object = weatherDataClient.getWeather(latitude, longitude);
+        Object object = weatherDataClient.getWeatherByCordinates(latitude, longitude);
 
         //TODO das was da ankommt irgendwie zu einem Wetterobjekt machen das auf timeInAdvanceInHours matcht
 

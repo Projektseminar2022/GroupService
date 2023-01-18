@@ -46,19 +46,16 @@ public class ConditionService {
     private boolean checkConditions(User user, Group group) {
         Condition condition = group.getCondition();
         Weather weather = this.getWeather(group.getLocation().getLatitude(), group.getLocation().getLongitude(), group.getHoursBeforeNotification());
-        if(!condition.getTemperatureInC().contains(weather.getTemperatureInC())) {
+        if(!condition.getTemperatureInC().contains((int) weather.getTemperatureInC())) {
             return false;
         }
-        if(!condition.getWindInKmH().contains(weather.getWindInKmH())) {
+        if(!condition.getWindInKmH().contains((int) weather.getWindInKmH())) {
             return false;
         }
-        if(!condition.getSnowInCm().contains(weather.getSnowInCm())) {
+        if(!condition.getHumidityInPerCent().contains((int) weather.getHumidityInPerCent())) {
             return false;
         }
-        if(!condition.getHumidityInPerCent().contains(weather.getHumidityInPerCent())) {
-            return false;
-        }
-        if(!condition.getPrecipitationInMm().contains(weather.getPrecipitationInMm())) {
+        if(!condition.getPrecipitationInMm().contains((int) weather.getPrecipitationInMm())) {
             return false;
         }
         return true;
