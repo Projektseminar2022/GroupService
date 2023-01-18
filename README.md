@@ -1,7 +1,5 @@
 # GroupService
 
-## Klassendiagramm
-
 
 ## Development
 
