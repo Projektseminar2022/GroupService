@@ -13,13 +13,10 @@ import java.util.UUID;
 @Service
 public class CallNotificationService {
 
-    private final NotificationClient notificationClient;
+    @Autowired
+    private NotificationClient notificationClient;
     public CallNotificationService() {
-        this.notificationClient = Feign.builder()
-                .client(new OkHttpClient())
-                .encoder(new GsonEncoder())
-                .decoder(new GsonDecoder())
-                .target(NotificationClient.class, "http://localhost:8081/api/books");
+
     }
 
     public boolean callNotification(String message, UUID userId) {
