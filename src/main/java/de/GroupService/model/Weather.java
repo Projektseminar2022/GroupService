@@ -11,11 +11,10 @@ import java.util.Date;
 public class Weather {
     private Location location;
     private Date timesOutAt;
-    private int temperatureInC;
-    private int windInKmH;
-    private int snowInCm;
-    private int humidityInPerCent;
-    private int precipitationInMm;
+    private double temperatureInC;
+    private double windInKmH;
+    private double humidityInPerCent;
+    private double precipitationInMm;
 
     public boolean notTimedout() {
         return Date.from(Instant.now()).after(timesOutAt);
