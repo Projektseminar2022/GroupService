@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "WeatherClient", url = "localhost:1234")
 public interface WeatherClient {
 
-    @GetMapping("/controller/GetWeatherForecast/")
-    WeatherDTO getWeatherByCordinates(@RequestParam(value="latitude") double latitude, @RequestParam(value="longitude") double longitude);
+    @GetMapping("/controller/forecast-by-coordinate-and-timeOffset/")
+    WeatherDTO getWeatherByCordinatesAndTimeInAdvance(@RequestParam(value="latitude") double latitude,
+                                                      @RequestParam(value="longitude") double longitude,
+                                                      @RequestParam(value="timeInAdvanceInHours") int timeInAdvanceInHours);
 
 }

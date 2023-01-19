@@ -13,12 +13,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 public class ConditionService {
 
-    private final CallNotificationService notificationService;
-
-    private WeatherDataService weatherService;
-
     @Autowired
     private UserService userService;
+    private final CallNotificationService notificationService;
+    private WeatherDataService weatherService;
+
 
     @Autowired
     public ConditionService(CallNotificationService service, WeatherDataService weatherService) {
@@ -32,6 +31,7 @@ public class ConditionService {
                 .map(group -> sendNotification(user, group)));
     }
 
+
     private boolean sendNotification(User user, Group group) {
         try {
             notificationService.callNotification(this.message() + group.getMessage(), user.getId());
@@ -42,9 +42,11 @@ public class ConditionService {
         }
     }
 
+
     private String message() {
         return "GroupService: ";
     }
+
 
     private boolean checkConditions(User user, Group group) {
         Condition condition = group.getCondition();
@@ -75,8 +77,8 @@ public class ConditionService {
         return true;
     }
 
+
     private Weather getWeather(double latitude, double longitude, int timeInAdvanceInHours) {
         return this.weatherService.getWeatherData(latitude, longitude, timeInAdvanceInHours);
     }
-
 }

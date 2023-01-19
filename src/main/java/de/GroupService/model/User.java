@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.UUID;
 
-//@Table("users")
+
 @Document
 @Data
 @AllArgsConstructor

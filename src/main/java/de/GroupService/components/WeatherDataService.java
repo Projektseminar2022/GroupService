@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 public class WeatherDataService {
 
     @Autowired
-    public WeatherClient weatherDataClient;
-
+    private WeatherClient weatherDataClient;
     public WeatherDataService() {
 
     }
@@ -21,14 +20,8 @@ public class WeatherDataService {
         return callApi(latitude, longitude, timeInAdvanceInHours);
     }
 
+
     private Weather callApi(double latitude, double longitude, int timeInAdvanceInHours) {
-        Weather weather;
-
-        Object object = weatherDataClient.getWeatherByCordinates(latitude, longitude);
-
-        //TODO das was da ankommt irgendwie zu einem Wetterobjekt machen das auf timeInAdvanceInHours matcht
-
-
-        return new Weather();
+        return weatherDataClient.getWeatherByCordinatesAndTimeInAdvance(latitude, longitude, timeInAdvanceInHours).toWeather();
     }
 }
