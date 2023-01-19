@@ -22,6 +22,6 @@ public class WeatherDataService {
 
 
     private Weather callApi(double latitude, double longitude, int timeInAdvanceInHours) {
-        return weatherDataClient.getWeatherByCordinatesAndTimeInAdvance(latitude, longitude, timeInAdvanceInHours).toWeather();
+        return weatherDataClient.getWeatherByCoordinatesAndTimeInAdvance(latitude, longitude, timeInAdvanceInHours).toWeather();
     }
 }

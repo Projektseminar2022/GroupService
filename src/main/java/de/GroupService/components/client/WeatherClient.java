@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface WeatherClient {
 
     @GetMapping("/controller/forecast-by-coordinate-and-timeOffset/")
-    WeatherDTO getWeatherByCordinatesAndTimeInAdvance(@RequestParam(value="latitude") double latitude,
-                                                      @RequestParam(value="longitude") double longitude,
-                                                      @RequestParam(value="timeInAdvanceInHours") int timeInAdvanceInHours);
+    WeatherDTO getWeatherByCoordinatesAndTimeInAdvance(@RequestParam(value="latitude") double latitude,
+                                                       @RequestParam(value="longitude") double longitude,
+                                                       @RequestParam(value="timeInAdvanceInHours") int timeInAdvanceInHours);
 
 }
